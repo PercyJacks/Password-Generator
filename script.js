@@ -88,7 +88,7 @@ var upperCasedCharacters = [
   'Z'
 ];
 
-var password_length;
+var password_length = 0;
 
 var optionsDict = {
   lowercase: false,
