@@ -101,7 +101,7 @@ var optionsDict = {
 function getPasswordOptions() {
   do {
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
-  } while (!((password_length > 10) && (password_length < 64)));
+  } while (!((password_length >= 10) && (password_length <= 64)));
 
   do {
   alert("What characters would you like to include in your password? Pick at least one of the following options.")
