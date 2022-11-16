@@ -90,11 +90,23 @@ var upperCasedCharacters = [
 
 var password_length;
 
+var optionsDict = {
+  lowercase: false,
+  uppercase: false,
+  numeric: false,
+  specials: false
+}
+
 // Function to prompt user for password options
 function getPasswordOptions() {
   do {
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
   } while (!((password_length > 10) && (password_length < 64)));
+
+  optionsDict['lowercase'] = confirm("Would you like to include lowercase characters in your password?");
+  optionsDict['uppercase'] = confirm("Would you like to include uppercase characters in your password?");
+  optionsDict['numeric'] = confirm("Would you like to include numeric characters in your password?");
+  optionsDict['specials'] = confirm("Would you like to include special characters in your password?");
 }
 
 // Function for getting a random element from an array
