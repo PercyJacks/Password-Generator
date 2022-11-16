@@ -109,7 +109,7 @@ function getPasswordOptions() {
 
   // Make sure user chooses at least 1 character option for their password
   do {
-  alert("What characters would you like to include in your password? Pick at least one of the following options.")
+  alert("Which characters would you like to include in your password? Pick at least one of the following options.")
   optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
   optionsDict.uppercase = confirm("Would you like to include uppercase characters in your password?");
   optionsDict.numeric = confirm("Would you like to include numeric characters in your password?");
