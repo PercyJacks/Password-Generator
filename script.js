@@ -88,8 +88,10 @@ var upperCasedCharacters = [
   'Z'
 ];
 
+// To store the password length the user chooses
 var password_length = 0;
 
+// To store boolean values of the character options the user chooses
 var optionsDict = {
   lowercase: false,
   uppercase: false,
@@ -99,10 +101,13 @@ var optionsDict = {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  // Get password length.
+  // Make sure user enters a number between 10 and 64 (inclusive)
   do {
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
   } while (!((password_length >= 10) && (password_length <= 64)));
 
+  // Make sure user chooses at least 1 character option for their password
   do {
   alert("What characters would you like to include in your password? Pick at least one of the following options.")
   optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
@@ -119,25 +124,32 @@ function getRandom(arr) {
 
 // Function to generate password with user input
 function generatePassword() {
+  // Get the password options
   getPasswordOptions();
   var password_options = [];
   var password = "";
+  // If the user wants to include lowercase characters then add them to the array
   if (optionsDict.lowercase) {
     password_options = password_options.concat(lowerCasedCharacters);
   }
+  // If the user wants to include uppercase characters then add them to the array
   if(optionsDict.uppercase) {
     password_options = password_options.concat(upperCasedCharacters);
   }
+  // If the user wants to include numeric characters then add them to the array
   if (optionsDict.numeric) {
     password_options = password_options.concat(numericCharacters);
   }
+  // If the user wants to include special characters then add them to the array
   if(optionsDict.specials) {
     password_options = password_options.concat(specialCharacters);
   }
 
+  // Create password with desired length
   for(var i = 0; i < password_length; i++) {
     password += getRandom(password_options);
   }
+
   return password;
 }
 
@@ -146,11 +158,14 @@ var generateBtn = document.querySelector('#generate');
 
 // Write password to the #password input
 function writePassword() {
+  // Get the generated password
   var password = generatePassword();
+  // Query the DOM for the element with the password id
   var passwordText = document.querySelector('#password');
-
+  // Change the text to display the password
   passwordText.value = password;
 }
 
 // Add event listener to generate button
+// On button click this will display the password in the space!
 generateBtn.addEventListener('click', writePassword);
