@@ -103,10 +103,13 @@ function getPasswordOptions() {
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
   } while (!((password_length > 10) && (password_length < 64)));
 
-  optionsDict['lowercase'] = confirm("Would you like to include lowercase characters in your password?");
-  optionsDict['uppercase'] = confirm("Would you like to include uppercase characters in your password?");
-  optionsDict['numeric'] = confirm("Would you like to include numeric characters in your password?");
-  optionsDict['specials'] = confirm("Would you like to include special characters in your password?");
+  do {
+  alert("What characters would you like to include in your password? Pick at least one of the following options.")
+  optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
+  optionsDict.uppercase = confirm("Would you like to include uppercase characters in your password?");
+  optionsDict.numeric = confirm("Would you like to include numeric characters in your password?");
+  optionsDict.specials = confirm("Would you like to include special characters in your password?");
+} while (!(optionsDict.lowercase || optionsDict.uppercase || optionsDict.numeric || optionsDict.specials));
 }
 
 // Function for getting a random element from an array
@@ -119,16 +122,16 @@ function generatePassword() {
   getPasswordOptions();
   var password_options = [];
   var password = "";
-  if (optionsDict['lowercase']) {
+  if (optionsDict.lowercase) {
     password_options = password_options.concat(lowerCasedCharacters);
   }
-  if(optionsDict['uppercase']) {
+  if(optionsDict.uppercase) {
     password_options = password_options.concat(upperCasedCharacters);
   }
-  if (optionsDict['numeric']) {
+  if (optionsDict.numeric) {
     password_options = password_options.concat(numericCharacters);
   }
-  if(optionsDict['specials']) {
+  if(optionsDict.specials) {
     password_options = password_options.concat(specialCharacters);
   }
 
