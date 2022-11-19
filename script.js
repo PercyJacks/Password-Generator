@@ -101,19 +101,29 @@ var optionsDict = {
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  var counter = 0;
   // Get password length.
   // Make sure user enters a number between 10 and 64 (inclusive)
   do {
+    if (counter > 0) {
+      alert("You must select a number that is at least 10 and not greater than 64!");
+    }
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
+    counter++;
   } while (!((password_length >= 10) && (password_length <= 64)));
 
+  counter = 0;
   // Make sure user chooses at least 1 character option for their password
   do {
-  alert("Which characters would you like to include in your password? Pick at least one of the following options.")
-  optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
-  optionsDict.uppercase = confirm("Would you like to include uppercase characters in your password?");
-  optionsDict.numeric = confirm("Would you like to include numeric characters in your password?");
-  optionsDict.specials = confirm("Would you like to include special characters in your password?");
+    if (counter > 0) {
+      alert("You must pick at least one of the options!");
+    }
+    alert("Which characters would you like to include in your password? Pick at least one of the following options.")
+    optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
+    optionsDict.uppercase = confirm("Would you like to include uppercase characters in your password?");
+    optionsDict.numeric = confirm("Would you like to include numeric characters in your password?");
+    optionsDict.specials = confirm("Would you like to include special characters in your password?");
+    counter++;
 } while (!(optionsDict.lowercase || optionsDict.uppercase || optionsDict.numeric || optionsDict.specials));
 }
 
@@ -130,23 +140,27 @@ function generatePassword() {
   var password = "";
   // If the user wants to include lowercase characters then add them to the array
   if (optionsDict.lowercase) {
+    password += getRandom(lowerCasedCharacters);
     password_options = password_options.concat(lowerCasedCharacters);
   }
   // If the user wants to include uppercase characters then add them to the array
   if(optionsDict.uppercase) {
+    password += getRandom(upperCasedCharacters);
     password_options = password_options.concat(upperCasedCharacters);
   }
   // If the user wants to include numeric characters then add them to the array
   if (optionsDict.numeric) {
+    password += getRandom(numericCharacters);
     password_options = password_options.concat(numericCharacters);
   }
   // If the user wants to include special characters then add them to the array
   if(optionsDict.specials) {
+    password += getRandom(specialCharacters);
     password_options = password_options.concat(specialCharacters);
   }
 
   // Create password with desired length
-  for(var i = 0; i < password_length; i++) {
+  while (password.length <= password_length) {
     password += getRandom(password_options);
   }
 
