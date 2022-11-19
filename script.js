@@ -92,12 +92,31 @@ var upperCasedCharacters = [
 var password_length = 0;
 
 // To store boolean values of the character options the user chooses
-var optionsDict = {
-  lowercase: false,
-  uppercase: false,
-  numeric: false,
-  specials: false
+var lowercase = {
+  name: 'lowercase',
+  array: lowerCasedCharacters,
+  bool: false
 }
+
+var uppercase = {
+  name: 'uppercase',
+  array: upperCasedCharacters,
+  bool: false
+}
+
+var numeric = {
+  name: 'numeric',
+  array: numericCharacters,
+  bool: false
+}
+
+var special = {
+  name: 'special',
+  array: specialCharacters,
+  bool: false
+}
+
+var characterOptions = [lowercase, uppercase, numeric, special];
 
 // Function to prompt user for password options
 function getPasswordOptions() {
@@ -119,12 +138,11 @@ function getPasswordOptions() {
       alert("You must pick at least one of the options!");
     }
     alert("Which characters would you like to include in your password? Pick at least one of the following options.")
-    optionsDict.lowercase = confirm("Would you like to include lowercase characters in your password?");
-    optionsDict.uppercase = confirm("Would you like to include uppercase characters in your password?");
-    optionsDict.numeric = confirm("Would you like to include numeric characters in your password?");
-    optionsDict.specials = confirm("Would you like to include special characters in your password?");
+    for (var i=0;i<characterOptions.length;i++) {
+      characterOptions[i].bool = confirm(`Would you like to include ${characterOptions[i].name} characters in your password?`);
+    }
     counter++;
-} while (!(optionsDict.lowercase || optionsDict.uppercase || optionsDict.numeric || optionsDict.specials));
+} while (!(lowercase.bool || uppercase.bool || numeric.bool || special.bool));
 }
 
 // Function for getting a random element from an array
@@ -139,24 +157,11 @@ function generatePassword() {
   var password_options = [];
   var password = "";
   // If the user wants to include lowercase characters then add them to the array
-  if (optionsDict.lowercase) {
-    password += getRandom(lowerCasedCharacters);
-    password_options = password_options.concat(lowerCasedCharacters);
-  }
-  // If the user wants to include uppercase characters then add them to the array
-  if(optionsDict.uppercase) {
-    password += getRandom(upperCasedCharacters);
-    password_options = password_options.concat(upperCasedCharacters);
-  }
-  // If the user wants to include numeric characters then add them to the array
-  if (optionsDict.numeric) {
-    password += getRandom(numericCharacters);
-    password_options = password_options.concat(numericCharacters);
-  }
-  // If the user wants to include special characters then add them to the array
-  if(optionsDict.specials) {
-    password += getRandom(specialCharacters);
-    password_options = password_options.concat(specialCharacters);
+  for (var i=0;i<characterOptions.length;i++) {
+    if(characterOptions[i].bool) {
+      password += getRandom(characterOptions[i].array);
+      password_options = password_options.concat(characterOptions[i].array);
+    }
   }
 
   // Create password with desired length
