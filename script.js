@@ -138,11 +138,11 @@ function getPasswordOptions() {
       alert("You must pick at least one of the options!");
     }
     alert("Which characters would you like to include in your password? Pick at least one of the following options.")
-    for (var i=0;i<characterOptions.length;i++) {
+    for (var i = 0; i < characterOptions.length; i++) {
       characterOptions[i].bool = confirm(`Would you like to include ${characterOptions[i].name} characters in your password?`);
     }
     counter++;
-} while (!(lowercase.bool || uppercase.bool || numeric.bool || special.bool));
+  } while (!(lowercase.bool || uppercase.bool || numeric.bool || special.bool));
 }
 
 // Function for getting a random element from an array
@@ -157,8 +157,8 @@ function generatePassword() {
   var password_options = [];
   var password = "";
   // If the user wants to include lowercase characters then add them to the array
-  for (var i=0;i<characterOptions.length;i++) {
-    if(characterOptions[i].bool) {
+  for (var i = 0; i < characterOptions.length; i++) {
+    if (characterOptions[i].bool) {
       password += getRandom(characterOptions[i].array);
       password_options = password_options.concat(characterOptions[i].array);
     }
