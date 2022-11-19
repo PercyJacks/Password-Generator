@@ -125,7 +125,7 @@ function getPasswordOptions() {
   // Make sure user enters a number between 10 and 64 (inclusive)
   do {
     if (counter > 0) {
-      alert("You must select a number that is at least 10 and not greater than 64!");
+      alert("You must enter a number that is at least 10 and not greater than 64!");
     }
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
     counter++;
@@ -137,7 +137,7 @@ function getPasswordOptions() {
     if (counter > 0) {
       alert("You must pick at least one of the options!");
     }
-    alert("Which characters would you like to include in your password? Pick at least one of the following options.")
+    alert("Which characters would you like to include in your password? Pick at least one of the following options. \n(Select OK to include and Cancel to exclude)")
     for (var i = 0; i < characterOptions.length; i++) {
       characterOptions[i].bool = confirm(`Would you like to include ${characterOptions[i].name} characters in your password?`);
     }
@@ -150,24 +150,39 @@ function getRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Function to shuffle a string
+function shuffleString(str) {
+  // Use split to turn the string into an array so you can make use of
+  // the sort() array method. Then use join() array method to turn the
+  // array back into a string.
+  // Math.random() -0.5 returns a random positive or negative value for
+  // the sort method to decide whether to switch around elements of the
+  // array.
+  return str.split('').sort(() => Math.random() - 0.5).join('');
+}
+
 // Function to generate password with user input
 function generatePassword() {
   // Get the password options
   getPasswordOptions();
   var password_options = [];
   var password = "";
-  // If the user wants to include lowercase characters then add them to the array
+  // If the user wants to include the character option then add the relevant character array to the password options array
   for (var i = 0; i < characterOptions.length; i++) {
     if (characterOptions[i].bool) {
+      // Make sure at least 1 of the options is included in the password
       password += getRandom(characterOptions[i].array);
       password_options = password_options.concat(characterOptions[i].array);
     }
   }
 
-  // Create password with desired length
+  // Randomise the rest of the characters
   while (password.length <= password_length) {
     password += getRandom(password_options);
   }
+
+  // Shuffle the password for extra randomness 😆
+  password = shuffleString(password);
 
   return password;
 }
