@@ -124,6 +124,7 @@ function getPasswordOptions() {
   for (var i = 0; i < characterOptions.length; i++) {
     characterOptions[i].bool = false;
   }
+  // Use counter to display alert when user enters incorrect values
   var counter = 0;
   // Get password length.
   // Make sure user enters a number between 10 and 64 (inclusive)
