@@ -125,6 +125,10 @@ function getPasswordOptions() {
   // Make sure user enters a number between 10 and 64 (inclusive)
   do {
     if (counter > 0) {
+      // Add this so that user isnt forced to enter a number if they select cancel for the first prompt
+      if (password_length == null) {
+        return;
+      }
       alert("You must enter a number that is at least 10 and not greater than 64!");
     }
     password_length = prompt("How long do you want your password to be? \nMust be between 10 - 64 characters!");
