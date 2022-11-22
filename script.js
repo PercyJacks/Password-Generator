@@ -177,7 +177,7 @@ function generatePassword() {
   }
 
   // Randomise the rest of the characters
-  while (password.length <= password_length) {
+  while (password.length < password_length) {
     password += getRandom(password_options);
   }
 
