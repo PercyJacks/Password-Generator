@@ -120,6 +120,10 @@ var characterOptions = [lowercase, uppercase, numeric, special];
 
 // Function to prompt user for password options
 function getPasswordOptions() {
+  // Reset the character options to their default value
+  for (var i = 0; i < characterOptions.length; i++) {
+    characterOptions[i].bool = false;
+  }
   var counter = 0;
   // Get password length.
   // Make sure user enters a number between 10 and 64 (inclusive)
